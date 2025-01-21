@@ -27,6 +27,12 @@ ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
+ENV HDFS_NAMENODE_USER=hadoop
+ENV HDFS_DATANODE_USER=hadoop
+ENV HDFS_SECONDARYNAMENODE_USER=hadoop
+ENV YARN_RESOURCEMANAGER_USER=hadoop
+ENV YARN_NODEMANAGER_USER=hadoop
+
 COPY --chown=$HADOOP_USER:$HADOOP_USER core-site.xml $HADOOP_CONF_DIR/core-site.xml
 COPY --chown=$HADOOP_USER:$HADOOP_USER hdfs-site.xml $HADOOP_CONF_DIR/hdfs-site.xml
 
@@ -34,6 +40,7 @@ COPY core-site.xml $HADOOP_HOME/etc/hadoop/
 COPY hdfs-site.xml $HADOOP_HOME/etc/hadoop/
 COPY mapred-site.xml $HADOOP_HOME/etc/hadoop/
 COPY yarn-site.xml $HADOOP_HOME/etc/hadoop/
+
 
 RUN echo "export JAVA_HOME=/opt/java/openjdk/" >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 RUN echo "export JAVA_HOME=/opt/java/openjdk" >> /home/$HADOOP_USER/.bashrc
